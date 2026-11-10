@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sériescope</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script type="module" src="js/index.js"></script>
+    <script type="module" src="js/js.js"></script>
   </head>
   <body class="flex flex-col gap-4 text-white px-16 bg-slate-950">
     <header class="flex items-center gap-4 bg-black py-3">
@@ -14,13 +14,17 @@
       </div>
       <h2 class="text-white text-xl font-bold">Sériescope</h2>
     </header>
-    <h2 class="text-4xl font-bold">Explore les séries TV</h2>
-    <p class="text-gray-700">
+    <h2 class="text-4xl font-bold md:w-[700px] md:mx-auto">Explore les séries TV</h2>
+    <p class="text-gray-700 md:w-[700px] md:mx-auto">
       Retrouve tes séries préférées et enrichis le catalogue.
     </p>
     <!-- add serie -->
     <section>
-      <form class="grid p-8 rounded-lg border border-gray-500" action="">
+      <form
+        id="from"
+        class="grid p-8 rounded-lg border border-gray-500 md:w-[700px] md:mx-auto"
+        action=""
+      >
         <h2 class="mb-4 text-3xl font-bold">Ajouter une série</h2>
         <p class="mb-2 text-gray-700">
           Les champs marqués d’un * sont obligatoires.
@@ -30,6 +34,7 @@
             <label class="flex flex-col gap-2" for="">
               <p>Nom de la série *</p>
               <input
+                id="name_of_the_serie"
                 class="w-full h-11 p-4 border-gray-600 border rounded-lg"
                 type="text"
                 placeholder="Ex. The Bear"
@@ -38,6 +43,7 @@
             <label class="flex flex-col gap-2" for="">
               <p>Genre(s) *</p>
               <input
+                id="genre"
                 class="w-full h-11 p-4 border-gray-600 border rounded-lg"
                 type="text"
                 placeholder="Ex. Drame, Comédie"
@@ -48,6 +54,7 @@
             <p>Description</p>
 
             <textarea
+              id="description"
               class="w-full h-20 p-4 border-gray-600 border rounded-lg"
               name=""
               id=""
@@ -63,13 +70,14 @@
         </div>
       </form>
     </section>
-    <h2>Catalogue des séries</h2>
-    <p>Recherche par nom ou explore un genre.</p>
+    <h2 class="text-4xl font-bold md:w-[700px] md:mx-auto">Catalogue des séries</h2>
+    <p class="text-gray-700 md:w-[700px] md:mx-auto">Recherche par nom ou explore un genre.</p>
     <!-- search and sort -->
-    <section class="grid p-8 gap-4 rounded-lg border border-gray-500">
+    <section class="w-full mx-auto grid grid-cols-1 p-8 gap-4 rounded-lg border border-gray-500 md:grid-cols-2 md:w-[700px] md:mx-auto">
       <label class="flex flex-col gap-2" for="">
         <p>Recherche</p>
         <input
+          id="recherche"
           class="w-full h-11 p-4 border-gray-600 border rounded-lg"
           type="text"
           placeholder="Ex. Breaking Bad"
@@ -79,6 +87,7 @@
         <label class="flex flex-col gap-2" for="">
           <p>Genre</p>
           <select
+            id="sort_genre"
             class="w-full h-11 p-4 border-gray-600 border rounded-lg"
             name=""
             id=""
@@ -89,6 +98,7 @@
           </select>
         </label>
         <button
+          id="reinitialiser"
           class="border border-gray-500 text-white h-11 p-3 rounded-xl cursor-pointer"
           type="button"
         >
@@ -97,7 +107,15 @@
       </div>
     </section>
 
-    <p>6 séries affichées</p>
-    <section></section>
+    <p id="number_serise">0 séries affichées</p>
+    <!-- <section id="list_serie" class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"> -->
+    <section id="list_serie" class="flex flex-wrap justify-center gap-9 ">
+      <!-- templet -->
+    </section>
+    <!-- void -->
+     <div id="voide" class="flex justify-center items-center text-3xl text-gray-600 bg-slate-900 rounded-xl h-32" hidden>
+  aucune série
+</div>
+    <!-- <div id="voide" class="flex justify-center items-center text-3xl text-gray-600 bg-slate-900 rounded-xl h-32" hidden > aucan serie </div> -->
   </body>
 </html>
