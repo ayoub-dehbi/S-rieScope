@@ -6,9 +6,9 @@ const genre = document.getElementById("genre");
 const descr = document.getElementById("description");
 
 // search sort
-// const list_serie = document.getElementById("list_serie")
-// const list_serie = document.getElementById("list_serie")
-// const list_serie = document.getElementById("list_serie")
+const recherche = document.getElementById("recherche");
+const sort_genre = document.getElementById("sort_genre");
+const reinitialiser = document.getElementById("reinitialiser");
 
 const number_serise = document.getElementById("number_serise");
 const voide = document.getElementById("voide");
@@ -17,7 +17,8 @@ const voide = document.getElementById("voide");
 const list_serie = document.getElementById("list_serie");
 
 let data = [];
-let id;
+let genre_tab = [];
+let id 
 
 // displaySeries()
 if (!JSON.parse(localStorage.getItem("data"))) {
@@ -28,21 +29,26 @@ if (!JSON.parse(localStorage.getItem("data"))) {
     }
 
     const datare = await resp.json();
-    for (let i = 0; i < 2; i++) data.push(datare[i]);
+    for (let i = 0; i < 20; i++) data.push(datare[i]);
     localStorage.setItem("data", JSON.stringify(data));
-    displaySeries();
+    displaySeries(data);
+    set_genres(data);
     id = 20;
+    console.log(data);
+    
   }
   fetchdata();
 } else {
   data = JSON.parse(localStorage.getItem("data"));
-  displaySeries();
+  displaySeries(data);
+  set_genres(data);
+    console.log(data);
+
 }
 
-function displaySeries() {
+// displaySeries
+function displaySeries(data) {
   list_serie.innerHTML = "";
-
-  data = JSON.parse(localStorage.getItem("data"));
 
   if (data.length > 0) {
     number_serise.textContent = data.length + " séries affichées";
@@ -55,23 +61,15 @@ function displaySeries() {
       const img = document.createElement("img");
       const h2 = document.createElement("h2");
       const div2 = document.createElement("div");
-      const summary = document.createElement("div");
+      const summary = document.createElement("P");
 
       div1.setAttribute(
         "class",
         " pb-3 w-[450px] overflow-hidden border border-gray-600 rounded-2xl",
       );
 
-      img.setAttribute(
-        "class",
-        " w-full h-60 shrink-0 object-cover overflow-hidden",
-      );
-      img.setAttribute(
-        "src",
-        serie.image
-          ? serie.image.original
-          : "assets/img/267d0a8bd026e263f09fdc107125377b70a799ee.jpg",
-      );
+      img.setAttribute("class", "w-full h-80 object-cover overflow-hidden");
+      img.setAttribute("src", serie.image.original)
       img.setAttribute("alt", "image of the serie");
 
       h2.setAttribute("class", "px-3 pt-2 font-bold text-xl");
@@ -89,9 +87,8 @@ function displaySeries() {
         div2.append(p1);
       });
 
-      summary.setAttribute("class", "px-3 text-gray-500");
-      summary.innerHTML = serie.summary.slice(0, 100);
-
+      summary.setAttribute("class", "px-3 text-sm truncate text-gray-500");
+      summary.textContent = serie.summary.replace(/<[^>]*>/g, "");
       div1.append(img, h2, div2, summary);
 
       list_serie.append(div1);
@@ -102,6 +99,34 @@ function displaySeries() {
   }
 }
 
+// set genres
+function set_genres(data) {
+  let genre_tab = [];
+  data.forEach((serie) => {
+    serie.genres.forEach((genre) => {
+      genre_tab.push(genre);
+    });
+  });
+  genre_tab = [...new Set(genre_tab)];
+  console.log(genre_tab);
+  sort_genre.textContent = ""
+  const option = document.createElement("option")
+    option.setAttribute("value", "")
+    option.setAttribute("class", "text-white bg-gray-800")
+    option.textContent = "tous les goners"
+    sort_genre.append(option)
+    
+  genre_tab.forEach(genre => {
+    const option = document.createElement("option")
+    option.setAttribute("value", genre)
+    option.setAttribute("class", "text-white bg-gray-800")
+    
+    option.textContent = genre
+    sort_genre.append(option)
+  });
+}
+
+// valid
 function isValid() {
   let valid = true;
   genre.classList.remove("border-red-600");
@@ -112,8 +137,6 @@ function isValid() {
 
   descr.classList.remove("border-red-600");
   descr.classList.add("border-gray-600");
-
-  console.log("test");
 
   if (!genre.value.trim()) {
     genre.classList.remove("border-gray-600");
@@ -136,24 +159,50 @@ function isValid() {
   return valid;
 }
 
+// add serie
 function add_serie() {
   let serie_add = {};
 
   if (!isValid()) return;
   else {
-    let genre_value = genre.value.split(" ");
-
     serie_add.id = id++;
     serie_add.name = serie_name.value;
-    serie_add.genres = genre_value;
+    serie_add.genres = genre.value.split(",");
     serie_add.summary = descr.value;
+    serie_add.image = { original : "assets/img/no-image-silhouette-icon-vector.webp" }
+    // serie_add.image = { original : "assets/img/267d0a8bd026e263f09fdc107125377b70a799ee.jpg" }
 
-    data.push(serie_add);
+    data.unshift(serie_add);
     localStorage.setItem("data", JSON.stringify(data));
     from.reset();
-    displaySeries();
+    displaySeries(data);
+    set_genres(data);
   }
 }
+
+// search and sort
+function search_sort() {
+  // search
+  let search = recherche.value.toLowerCase().trim();
+  let search_res = data.filter((res) =>
+    res.name.toLowerCase().includes(search),
+  );
+
+  // sort by genre
+  if(sort_genre.value)
+    search_res = search_res.filter(genre => genre.genres.includes(sort_genre.value))
+
+  displaySeries(search_res);
+}
+recherche.addEventListener("input", search_sort);
+sort_genre.addEventListener("change", search_sort);
+reinitialiser.addEventListener("click", (e) => {
+  e.preventDefault();
+  recherche.value = "";
+  sort_genre.selectedIndex = 0;
+  displaySeries(data);
+});
+
 from.addEventListener("submit", (e) => {
   e.preventDefault();
   add_serie();
