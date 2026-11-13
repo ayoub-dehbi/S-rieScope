@@ -3,9 +3,9 @@
 Petite app web qui affiche des séries TV depuis **TVMaze**, avec recherche,
 filtre par genre et mise en cache dans le navigateur.
 
-![Aperçu](assets/screenshot/page1.png)
+![Aperçu](screenshot/page1.png)
 
-![Aperçu](assets/screenshot/page2.png)
+![Aperçu](screenshot/page2.png)
 
 
 ## ✨ Fonctionnalités
@@ -102,7 +102,7 @@ location.reload();
 
 ## jira
 
-![Aperçu](assets/screenshot/jira.png)
+![Aperçu](screenshot/jira.png)
 
 
 Fait avec ❤️ + un peu de ☕ (et beaucoup de `console.log` 😄).
