@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sériescope</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <script type="module" src="js/js.js"></script>
+    <!-- <script type="module" src="js/js.js"></script> -->
+    <script type="module" src="js/main.js"></script>
   </head>
   <body class="flex flex-col gap-4 text-white px-16 bg-slate-950">
     <header class="flex items-center gap-4 bg-black py-3">
@@ -38,6 +40,15 @@
                 class="w-full h-11 p-4 border-gray-600 border rounded-lg"
                 type="text"
                 placeholder="Ex. The Bear"
+              />
+            </label>
+            <label class="flex flex-col gap-2" for="name_of_the_serie">
+              <p>language *</p>
+              <input
+                id="language_of_the_serie"
+                class="w-full h-11 p-4 border-gray-600 border rounded-lg"
+                type="text"
+                placeholder="Ex. English"
               />
             </label>
             <label  class="flex flex-col gap-2" for="genre">
