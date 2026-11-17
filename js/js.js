@@ -1,3 +1,5 @@
+
+
 // form input
 const from = document.getElementById("from");
 
@@ -18,7 +20,7 @@ const list_serie = document.getElementById("list_serie");
 
 let data = [];
 let genre_tab = [];
-let id 
+let id;
 
 // displaySeries()
 if (!JSON.parse(localStorage.getItem("data"))) {
@@ -34,16 +36,12 @@ if (!JSON.parse(localStorage.getItem("data"))) {
     displaySeries(data);
     set_genres(data);
     id = 20;
-    console.log(data);
-    
   }
   fetchdata();
 } else {
   data = JSON.parse(localStorage.getItem("data"));
   displaySeries(data);
   set_genres(data);
-    console.log(data);
-
 }
 
 // displaySeries
@@ -69,7 +67,7 @@ function displaySeries(data) {
       );
 
       img.setAttribute("class", "w-full h-80 object-cover overflow-hidden");
-      img.setAttribute("src", serie.image.original)
+      img.setAttribute("src", serie.image.original);
       img.setAttribute("alt", "image of the serie");
 
       h2.setAttribute("class", "px-3 pt-2 font-bold text-xl");
@@ -108,21 +106,20 @@ function set_genres(data) {
     });
   });
   genre_tab = [...new Set(genre_tab)];
-  console.log(genre_tab);
-  sort_genre.textContent = ""
-  const option = document.createElement("option")
-    option.setAttribute("value", "")
-    option.setAttribute("class", "text-white bg-gray-800")
-    option.textContent = "tous les goners"
-    sort_genre.append(option)
-    
-  genre_tab.forEach(genre => {
-    const option = document.createElement("option")
-    option.setAttribute("value", genre)
-    option.setAttribute("class", "text-white bg-gray-800")
-    
-    option.textContent = genre
-    sort_genre.append(option)
+  sort_genre.textContent = "";
+  const option = document.createElement("option");
+  option.setAttribute("value", "");
+  option.setAttribute("class", "text-white bg-gray-800");
+  option.textContent = "tous les goners";
+  sort_genre.append(option);
+
+  genre_tab.forEach((genre) => {
+    const option = document.createElement("option");
+    option.setAttribute("value", genre);
+    option.setAttribute("class", "text-white bg-gray-800");
+
+    option.textContent = genre;
+    sort_genre.append(option);
   });
 }
 
@@ -169,7 +166,9 @@ function add_serie() {
     serie_add.name = serie_name.value;
     serie_add.genres = genre.value.split(",");
     serie_add.summary = descr.value;
-    serie_add.image = { original : "assets/img/no-image-silhouette-icon-vector.webp" }
+    serie_add.image = {
+      original: "assets/img/no-image-silhouette-icon-vector.webp",
+    };
     // serie_add.image = { original : "assets/img/267d0a8bd026e263f09fdc107125377b70a799ee.jpg" }
 
     data.unshift(serie_add);
@@ -189,8 +188,10 @@ function search_sort() {
   );
 
   // sort by genre
-  if(sort_genre.value)
-    search_res = search_res.filter(genre => genre.genres.includes(sort_genre.value))
+  if (sort_genre.value)
+    search_res = search_res.filter((genre) =>
+      genre.genres.includes(sort_genre.value),
+    );
 
   displaySeries(search_res);
 }
