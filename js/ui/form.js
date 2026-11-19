@@ -83,13 +83,13 @@ export async function add_serie(data) {
   }
 }
 
-// export async function modifie_seeie(id) {
-//   id_edite = id;
-//   let sre = await getById(id)
+export async function modifie_seeie(id) {
+  id_edite = id;
+  let sre = await getById(id)
 
-//   serie_name.value = sre.name;
-//   serie_language.value = sre.language;
-//   genre.value = sre.genres.join();
-//   descr.value = sre.summary;
+  serie_name.value = sre.name;
+  serie_language.value = sre.language;
+  genre.value = sre.genres.join();
+  descr.value = sre.summary;
 
-// }
+}
