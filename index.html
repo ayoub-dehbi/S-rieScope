@@ -94,7 +94,9 @@
           placeholder="Ex. Breaking Bad"
         />
       </label>
-      <div class="grid grid-cols-2 items-end gap-3">
+      <div class="grid grid-cols-1 items-end gap-3">
+        <div class="grid grid-cols-1">
+          
         <label class="flex flex-col gap-2" for="">
           <p>Genre</p>
           <select
@@ -105,6 +107,18 @@
           >
           </select>
         </label>
+        <label class="flex flex-col gap-2" for="">
+          <p>language</p>
+          <select
+            id="sort_language"
+            class="w-full h-11 px-4 border-gray-600 border rounded-lg"
+            name=""
+            id=""
+          >
+          </select>
+        </label>
+        </div>
+
         <button
           id="reinitialiser"
           class="border border-gray-500 text-white h-11 p-3 rounded-xl cursor-pointer"
